@@ -10,6 +10,7 @@ resource "random_id" "default" {
 
 data "google_compute_zones" "available" {
   region = var.region
+  project = var.project
 }
 
 resource "random_shuffle" "default" {
