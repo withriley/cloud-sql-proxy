@@ -71,7 +71,7 @@ resource "google_iap_tunnel_instance_iam_binding" "enable_iap" {
 }
 
 // optionally create fw
-resource "google_compute_firewall" "allow_from_iap_to_instances" {
+resource "google_compute_firewall" "default" {
   count   = var.create_firewall_rule ? 1 : 0
   project = var.host_project != "" ? var.host_project : var.project
   name    = "cloudsqlproxy-${random_id.default.hex}"
@@ -94,5 +94,3 @@ resource "google_project_service" "default" {
 
   disable_on_destroy = false
 }
-
-// test new line

@@ -1,6 +1,6 @@
 variable "network" {
   type        = string
-  description = "Name of the network/VPC"
+  description = "Name of the network"
 }
 variable "subnetwork" {
   type        = string
@@ -16,7 +16,7 @@ variable "db_name" {
 }
 variable "project" {
   type        = string
-  description = "Project name to deploy the resources to"
+  description = "Project name where the resources are deployed"
 }
 variable "create_firewall_rule" {
   type        = bool
@@ -29,13 +29,11 @@ variable "additional_ports" {
   default     = []
 }
 variable "members" {
-  description = "List of the members to grant IAM permissions for IAP tunnelling"
+  description = "List of the members to grant IAM permissions for IAP tunnelling. Format: user:<email>, group:<email>, etc."
   type        = list(string)
 }
 variable "host_project" {
-  description = "Project where the firewall rule will be created if using Shared VPC - if not using Shared VPC leave blank"
+  description = "Project where the firewall rule + VM will be created if using Shared VPC - if not using Shared VPC leave blank"
   type        = string
   default     = ""
 }
-
-// test new line
