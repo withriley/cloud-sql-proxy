@@ -20,6 +20,7 @@ resource "random_shuffle" "default" {
 // create service account with cloudsql.editor role
 resource "google_service_account" "default" {
   account_id   = "cloudsqlproxy-${random_id.default.hex}"
+  project = var.project
   display_name = "Service Account for Cloud SQL Proxy"
 }
 
@@ -32,6 +33,7 @@ resource "google_project_iam_member" "project" {
 // create compute instance that hosts the proxy
 resource "google_compute_instance" "default" {
   name         = "cloudsqlproxy-${random_id.default.hex}"
+  project = var.project
   machine_type = "e2-small"
   zone         = random_shuffle.default.result[0]
 
