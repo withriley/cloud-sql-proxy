@@ -9,7 +9,7 @@ resource "random_id" "default" {
 }
 
 data "google_compute_zones" "available" {
-  region = var.region
+  region  = var.region
   project = var.project
 }
 
@@ -18,14 +18,15 @@ resource "random_shuffle" "default" {
 }
 
 data "google_compute_subnetwork" "my-subnetwork" {
-  name   = var.subnetwork
-  region = var.region
+  name    = var.subnetwork
+  region  = var.region
+  project = var.host_project != "" ? var.host_project : var.project
 }
 
 // create service account with cloudsql.editor role
 resource "google_service_account" "default" {
   account_id   = "cloudsqlproxy-${random_id.default.hex}"
-  project = var.project
+  project      = var.project
   display_name = "Service Account for Cloud SQL Proxy"
 }
 
@@ -38,7 +39,7 @@ resource "google_project_iam_member" "project" {
 // create compute instance that hosts the proxy
 resource "google_compute_instance" "default" {
   name         = "cloudsqlproxy-${random_id.default.hex}"
-  project = var.project
+  project      = var.project
   machine_type = "e2-small"
   zone         = random_shuffle.default.result[0]
 
