@@ -44,7 +44,7 @@ resource "google_compute_instance" "default" {
     subnetwork = var.subnetwork
   }
 
-  metadata_startup_script = templatefile("${path. module}/startup-script.sh", local.script_vars)
+  metadata_startup_script = templatefile("${path.module}/startup-script.sh", local.script_vars)
 
   service_account {
     email  = google_service_account.default.email
