@@ -17,6 +17,11 @@ resource "random_shuffle" "default" {
   input = data.google_compute_zones.available.names
 }
 
+data "google_compute_subnetwork" "my-subnetwork" {
+  name   = var.subnetwork
+  region = var.region
+}
+
 // create service account with cloudsql.editor role
 resource "google_service_account" "default" {
   account_id   = "cloudsqlproxy-${random_id.default.hex}"
@@ -44,7 +49,7 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    subnetwork = var.subnetwork
+    subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
   }
 
   metadata_startup_script = templatefile("${path.module}/startup-script.sh", local.script_vars)
