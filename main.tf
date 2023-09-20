@@ -17,7 +17,7 @@ resource "random_shuffle" "default" {
   input = data.google_compute_zones.available.names
 }
 
-data "google_compute_subnetwork" "my-subnetwork" {
+data "google_compute_subnetwork" "default" {
   name    = var.subnetwork
   region  = var.region
   project = var.host_project != "" ? var.host_project : var.project
@@ -50,7 +50,7 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+    subnetwork = data.google_compute_subnetwork.default.self_link
   }
 
   metadata_startup_script = templatefile("${path.module}/startup-script.sh", local.script_vars)
