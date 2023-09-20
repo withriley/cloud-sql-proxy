@@ -1,6 +1,6 @@
 locals {
   script_vars = {
-    INSTANCE_CONNECTION_NAME = "${var.project}:${var.region}:${var.db_name}"
+    INSTANCE_CONNECTION_NAME = data.google_sql_database_instance.default.connection_name
   }
 }
 
@@ -21,6 +21,12 @@ data "google_compute_subnetwork" "default" {
   name    = var.subnetwork
   region  = var.region
   project = var.host_project != "" ? var.host_project : var.project
+}
+
+data "google_sql_database_instance" "default" {
+  name    = var.db_name
+  region  = var.region
+  project = var.project
 }
 
 // create service account with cloudsql.editor role
