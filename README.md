@@ -1,9 +1,16 @@
-# template-terraform-module
-A Template for creating your own Terraform Modules :robot:
+# cloud-sql-proxy
 
 ![TFSec Security Checks](https://github.com/withriley/template-terraform-module/actions/workflows/main.yml/badge.svg)
 ![terraform-docs](https://github.com/withriley/template-terraform-module/actions/workflows/terraform-docs.yml/badge.svg)
 ![auto-release](https://github.com/withriley/template-terraform-module/actions/workflows/release.yml/badge.svg)
+
+A Terraform module that builds out a Compute Engine VM with the Cloud SQL Proxy installed as well as the required IAP configs to allow a developer to access a Cloud SQL database from their workstation :robot:
+
+To connect to the Cloud SQL instance once the infrastructure has been applied you need to open a tunnel to the VM using the following example command:
+
+`gcloud compute start-iap-tunnel cloudsqlproxy-695b 3306 --local-host-port=localhost:3306 --zone=australia-southeast1-c`
+
+Replace the VM name and ports with the relevant ports for your environment.
 
 <!-- BEGIN_TF_DOCS -->
 
