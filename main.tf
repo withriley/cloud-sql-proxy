@@ -25,7 +25,6 @@ data "google_compute_subnetwork" "default" {
 
 data "google_sql_database_instance" "default" {
   name    = var.db_name
-  region  = var.region
   project = var.project
 }
 
