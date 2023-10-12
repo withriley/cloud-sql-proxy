@@ -18,6 +18,8 @@ Replace the VM name and both ports with the relevant ports for your environment.
 
 The above example creates an IAP tunnel to the VM named `cloudsqlproxy-695b` on port `3306` using the local host port `3306`. The Cloud SQL proxy listens on whichever port is relevant to the database you're connecting to (in this example we're connecting to a MySQL Cloud SQL instance, so the Cloud SQL Proxy automatically listens on port `3306`).
 
+For more information, please refer to the Cloud SQL Proxy documentation [here](https://cloud.google.com/sql/docs/mysql/sql-proxy).
+
 ## Assumptions
 
 * You have a Cloud SQL instance already created
