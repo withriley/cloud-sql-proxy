@@ -4,13 +4,34 @@
 ![terraform-docs](https://github.com/withriley/template-terraform-module/actions/workflows/terraform-docs.yml/badge.svg)
 ![auto-release](https://github.com/withriley/template-terraform-module/actions/workflows/release.yml/badge.svg)
 
+## Overview
+
 A Terraform module that builds out a Compute Engine VM with the Cloud SQL Proxy installed as well as the required IAP configs to allow a developer to access a Cloud SQL database from their workstation :robot:
+
+![Diagram of infrastructure deployed via this module to support remote Cloud SQL connections](diagram.png)
 
 To connect to the Cloud SQL instance once the infrastructure has been applied you need to open a tunnel to the VM using the following example command:
 
 `gcloud compute start-iap-tunnel cloudsqlproxy-695b 3306 --local-host-port=localhost:3306 --zone=australia-southeast1-c`
 
-Replace the VM name and ports with the relevant ports for your environment.
+Replace the VM name and both ports with the relevant ports for your environment. 
+
+The above example creates an IAP tunnel to the VM named `cloudsqlproxy-695b` on port `3306` using the local host port `3306`. The Cloud SQL proxy listens on whichever port is relevant to the database you're connecting to (in this example we're connecting to a MySQL Cloud SQL instance, so the Cloud SQL Proxy automatically listens on port `3306`).
+
+Once the IAP tunnel has been brought up you are able to connect to the Cloud SQL instance on `localhost:3306`. Keep in mind that the terminal session where the tunnel is open must remain open so you'll need to open another terminal session to run your SQL queries.
+
+For more information, please refer to the Cloud SQL Proxy documentation [here](https://cloud.google.com/sql/docs/mysql/sql-proxy).
+
+## Assumptions
+
+* You have a Cloud SQL instance already created
+* You have a VPC network and subnetwork already created
+
+## Troubleshooting
+
+If you are having issues connecting to the Cloud SQL instance via the proxy, check the startup script logs on the VM to see if there are any errors. You can do this by running the following command on the instance:
+
+`sudo journalctl -u google-startup-scripts.service`
 
 <!-- BEGIN_TF_DOCS -->
 
