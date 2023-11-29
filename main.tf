@@ -66,6 +66,10 @@ resource "google_compute_instance" "default" {
     email  = google_service_account.default.email
     scopes = ["cloud-platform"]
   }
+
+  lifecycle {
+    replace_triggered_by = [google_compute_instance.default.metadata_startup_script]
+  }
 }
 
 // create iam binding to allow user to create iap tunnel
