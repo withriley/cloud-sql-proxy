@@ -37,3 +37,13 @@ variable "host_project" {
   type        = string
   default     = ""
 }
+variable "cloud_sql_proxy_version" {
+  description = "Version of the Cloud SQL Proxy to download"
+  type        = string
+  default     = "v2.7.2"
+}
+variable "psc_connection" {
+  description = "Set this to true to connect to your Cloud SQL instance via Private Service Connect. default will connect to SQL via private IP."
+  type        = bool
+  default     = false
+}

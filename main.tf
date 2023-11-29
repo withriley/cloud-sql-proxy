@@ -1,6 +1,8 @@
 locals {
   script_vars = {
     INSTANCE_CONNECTION_NAME = data.google_sql_database_instance.default.connection_name
+    CLOUD_SQL_PROXY_VERSION  = var.cloud_sql_proxy_version
+    CONNECTION_MODE          = var.psc_connection ? "--psc" : "--private-ip"
   }
 }
 
@@ -44,6 +46,7 @@ resource "google_project_iam_member" "project" {
 // create compute instance that hosts the proxy
 resource "google_compute_instance" "default" {
   name         = "cloudsqlproxy-${random_id.default.hex}"
+  description  = "Cloud SQL Proxy - ${base64sha256(jsonencode(local.script_vars))}" # force instance replacement on var change
   project      = var.project
   machine_type = "e2-small"
   zone         = random_shuffle.default.result[0]
