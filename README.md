@@ -77,12 +77,14 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_ports"></a> [additional\_ports](#input\_additional\_ports) | Additional ports to open for IAP tunnelling - only used if create\_firewall\_rule is true | `list(string)` | `[]` | no |
+| <a name="input_cloud_sql_proxy_version"></a> [cloud\_sql\_proxy\_version](#input\_cloud\_sql\_proxy\_version) | Version of the Cloud SQL Proxy to download | `string` | `"v2.7.2"` | no |
 | <a name="input_create_firewall_rule"></a> [create\_firewall\_rule](#input\_create\_firewall\_rule) | Boolean to enable/disable firewall rule creation for IAP tunnelling | `bool` | `false` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Cloud SQL instance database name | `string` | n/a | yes |
 | <a name="input_host_project"></a> [host\_project](#input\_host\_project) | Project where the firewall rule + VM will be created if using Shared VPC - if not using Shared VPC leave blank | `string` | `""` | no |
 | <a name="input_members"></a> [members](#input\_members) | List of the members to grant IAM permissions for IAP tunnelling. Format: user:<email>, group:<email>, etc. | `list(string)` | n/a | yes |
 | <a name="input_network"></a> [network](#input\_network) | Name of the network | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | Project name where the resources are deployed | `string` | n/a | yes |
+| <a name="input_psc_connection"></a> [psc\_connection](#input\_psc\_connection) | Set this to true to connect to your Cloud SQL instance via Private Service Connect. default will connect to SQL via private IP. | `bool` | `false` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region to deploy the resources to | `string` | n/a | yes |
 | <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | Name of the subnetwork | `string` | n/a | yes |
 
