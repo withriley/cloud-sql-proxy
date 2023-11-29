@@ -46,7 +46,7 @@ resource "google_project_iam_member" "project" {
 // create compute instance that hosts the proxy
 resource "google_compute_instance" "default" {
   name         = "cloudsqlproxy-${random_id.default.hex}"
-  description  = "Cloud SQL Proxy - ${base64sha256(jsonencode(local.script_vars))}"
+  description  = "Cloud SQL Proxy - ${base64sha256(jsonencode(local.script_vars))}" # force instance replacement on var change
   project      = var.project
   machine_type = "e2-small"
   zone         = random_shuffle.default.result[0]
