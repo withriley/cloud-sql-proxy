@@ -1,6 +1,8 @@
 locals {
   script_vars = {
     INSTANCE_CONNECTION_NAME = data.google_sql_database_instance.default.connection_name
+    CLOUD_SQL_PROXY_VERSION  = var.cloud_sql_proxy_version
+    CONNECTION_MODE          = var.psc_connection ? "--psc" : "--private-ip"
   }
 }
 
